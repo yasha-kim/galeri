@@ -53,48 +53,59 @@
             
             
         
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
-            +
-            </button>
+        <div class="btn-group">
+        
+        <button type="button" class="btn-plus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-plus"></i>
+        </button>            
 
-            <!-- Modal -->
-            <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog  modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header ">
-                            <h2 class="modal-title" id="exampleModalLabel">Create Album</h2>
-                            
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="">
-                            @csrf
-                                <div class="row g-8">
-                               
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-margin">
+        <h6 class="dropdown-header">Create</h6>
+            <a class="dropdown-item" href="" role="button" data-toggle="modal" data-target="#exampleModal">
+                Board
+            </a>
+            <a class="dropdown-item" href="">
+                Pin
+            </a>
+        </div>
+    </div>
 
-                                
-                                <div class="col-12 pb-3 ">
-                                    <div class="form-group text-start">
-                                    <label class="mb-1 fw-medium text-light-dark" for="modalInput2-7">Name</label>
-                                    <input class="form-control" name="nama_album" type="text" placeholder="Like 'Places to Go' or 'Recipes to Make">
-                                    </div>
-                                </div>
-                                <div class="col-12 pb-3">
-                                    <div class="form-group text-start">
-                                    <label class="mb-1 fw-medium text-light-dark" for="modalInput2-8">Deskripsi</label>
-                                    <textarea class="form-control" name="diskripsi"></textarea>
-                                    </div>
-                                </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary">Create</button>
-                                </div>
-                                
-                            </form>
-                        </div>
+    <!-- Modal -->
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h2 class="modal-title" id="exampleModalLabel">Create Album</h2>
                     
-                    </div>
                 </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('album.store') }}">
+                    {{ csrf_field() }}
+
+                    @method('POST')
+                        <div class="row g-8">
+                        
+                            <div class="col-12 pb-3 ">
+                                <div class="form-group text-start">
+                                <label class="mb-1 fw-medium text-light-dark" for="modalInput2-7">Name</label>
+                                <input class="form-control" name="nama_album" type="text" placeholder="Like 'Places to Go' or 'Recipes to Make">
+                                </div>
+                            </div>
+                            <div class="col-12 pb-3">
+                                <div class="form-group text-start">
+                                <label class="mb-1 fw-medium text-light-dark" for="modalInput2-8">Deskripsi</label>
+                                <textarea class="form-control" name="deskripsi"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-secondary">Create</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            
             </div>
         </div>
     </div>

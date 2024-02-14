@@ -28,8 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/setting', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::get('/create-pin', [PostController::class, 'index'])->name('create-pin');
     Route::get('/profile', [AlbumController::class, 'index'])->name('album.index');
+    Route::post('/album', [AlbumController::class, 'store'])->name('album.store');
+    Route::get('/{albumSlug}', [AlbumController::class, 'show'])->name('album.show');
 });
 
 require __DIR__.'/auth.php';

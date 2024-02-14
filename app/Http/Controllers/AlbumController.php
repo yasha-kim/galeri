@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\View\View;
+use App\Models\Album;
 use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
@@ -42,6 +43,16 @@ class AlbumController extends Controller
         return view('album.index');
     }
 
+    public function show($albumSlug)
+    {
+        // Retrieve the album using the slug
+        $album = Album::where('nama_album', Str::slug($albumSlug))->first();
+
+        // Add additional logic as needed
+
+        // Pass the album data to the view
+        return view('album.show', ['album' => $album]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -57,13 +68,19 @@ class AlbumController extends Controller
             'deskripsi' => 'required|max:10',
         ]);
 
-        $test = DB::table('albums')->insert([
-        'nama_album' => $request->nama_album,
-        'deskripsi' => $request->deskripsi,
-        'users_id' => \Auth::user()->id,
+        $album = Album::create([
+            'nama_album' => $request->nama_album,
+            'deskripsi' => $request->deskripsi,
+            'users_id' => \Auth::user()->id,
         ]);
 
-        return redirect()->route('album.index')->with('message', 'Album Added');
+        // Generate a unique slug for the album name
+        $albumSlug = Str::slug($album->nama_album);
+
+        // Redirect to the show route with the generated slug
+        return redirect()->route('album.show', ['albumSlug' => $albumSlug]);
+
+        // return redirect()->route('album.index')->with('message', 'Album Added');
 
     }
 
